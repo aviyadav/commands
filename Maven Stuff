@@ -1,0 +1,15 @@
+mvn dependency:resolve
+mvn clean package
+mvn clean install
+mvn exec:java -Dexec.mainClass="hello.Application"
+
+mvn exec:java -Dexec.mainClass="com.sample.jpa.main.Main"
+mvn exec:java -Dexec.mainClass="org.sample.jpa.hibernate.MainApp"
+
+
+Available lifecycle phases are: validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy, pre-clean, clean, post-clean, pre-site, site, post-site, site-deploy
+
+
+
+
+
