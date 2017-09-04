@@ -1,0 +1,22 @@
+on codenvy -
+mysql -u $MYSQL_USER -p$MYSQL_PASSWORD
+
+mysql -u petclinic -ppassword
+
+use petclinic;
+
+jdbc.url=jdbc:mysql://db:3306/petclinic
+
+mvn archetype:create -DgroupId=com.javacodegeeks.ultimate -DartifactId=jpa
+
+CREATE TABLE Address(
+   id INT NOT NULL AUTO_INCREMENT,
+   street VARCHAR(100),
+   city VARCHAR(20) NOT NULL,
+   province VARCHAR(50),
+   country VARCHAR(20) NOT NULL,
+   postcode VARCHAR(6) NOT NULL,
+   PRIMARY KEY ( id )
+   );
+   
+   ---
