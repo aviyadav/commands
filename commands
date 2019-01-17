@@ -48,3 +48,22 @@ awk '{print $0}' /u/cpgcjr/risk1QA/flatfiles/.avinashy/CLN_RiskOne_REG\@LNCLN/ri
 
 awk -F"|" '{print $2, $5}' OFS="," /u/cpgcjr/risk1QA/flatfiles/.avinashy/CLN_RiskOne_REG\@LNCLN/risk1.LNCLN.load.reg.MAIN_FILE
 awk -F"|" '{print $2, $5}' OFS="--" /u/cpgcjr/risk1QA/flatfiles/.avinashy/CLN_RiskOne_REG\@LNCLN/risk1.LNCLN.load.reg.MAIN_FILE
+
+
+
+
+=>Check Ram Size From Redhat Linux Desktop System
+cat /proc/meminfo
+
+
+=>check free space:
+$ free -m
+$ free -g
+$ free -k
+
+$ top
+
+=> memory stats
+$ vmstat
+$ vmstat -s
+
