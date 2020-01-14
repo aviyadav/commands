@@ -1,0 +1,64 @@
+setup noinstall version 8+
+1. unzip file
+2. cd mysql-****
+3. bin\mysqld --initialize-insecure [to create data directory]
+4. mysqld --console [first time; server will start]
+
+5. Another window:
+	bin\mysql -u root --skip-password [mysql open without password, will work only first time]
+6. alter user 'root'@'localhost' identified by 'password';
+7. \q [to quit]
+8. bin\mysql -u root -p [login with password.]
+9. \q [to quit]
+
+10. for service
+CMD as Admin
+11. goto mysql
+12. bin\mysqld --install "MySQL-8"
+
+
+to remove service
+CMD as Admin
+11. goto mysql
+12. bin\mysqld --remove "MySQL-8"
+
+-------------------------------------------------------------------------
+
+command line mysql 
+
+
+connecting :-
+mysql -u root -p
+
+
+change password
+CREATE USER 'devuser'@'localhost'
+  IDENTIFIED BY 'password';
+  
+GRANT ALL
+  ON *.*
+  TO 'devuser'@'localhost'
+  WITH GRANT OPTION;
+
+\q 
+
+mysql -u speedment_user -p
+
+
+CREATE DATABASE hellospeedment;
+
+USE dbname;
+
+CREATE TABLE IF NOT EXISTS `user` (
+    `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    `name` varchar(32) NOT NULL,
+    `age` int(5) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+
+
+CREATE DATABASE sampledb;
+CREATE USER 'dbuser'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL ON *.* TO 'dbuser'@'localhost' WITH GRANT OPTION;
