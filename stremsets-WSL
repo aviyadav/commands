@@ -1,0 +1,37 @@
+streamsets - WSL
+set ulimit ----
+
+ulimit -n 32768
+
+
+create a file wsl.conf in /etc folder
+
+sudo vi /etc/wsl.conf
+
+-----------
+[automount]
+enable = true
+options = "metadata"
+----------
+
+run chmod 600 etc/form-realm.properties -- in streamsets install folder
+
+
+
+
+start the streamsets data collector
+
+sudo -u q845332 bin/streamsets dc
+
+open in browser - http://INBANWL012164.quintiles.net:18630
+user - admin
+pwd - admin
+
+
+to shutdown:-
+
+kill -15 <process ID>
+
+or 
+
+select shutdown from UI
