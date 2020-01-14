@@ -1,0 +1,17 @@
+runas /user:Administrator "notepad my_file.txt"
+
+net start CouchbaseServer
+
+net stop CouchbaseServer
+
+cbimport csv -c couchbase://127.0.0.1 -u admin -p password  -b default -d file://C:/data/tmp/facility/Facility_rc.csv -g key::%fname% -t 2
+
+C:/Users/q845332/codebase/data/tmp/facility/Facility_rc.csv
+
+
+cd C:\codebase
+
+java -cp lib\oracle2couchbase.jar;lib\couchbase\couchbase-java-client-2.7.8.jar;lib\couchbase\couchbase-core-io-1.7.8.jar;lib\couchbase\opentracing-api-0.31.0.jar;lib\couchbase\rxjava-1.3.8.jar;lib\ojdbc7.jar; -DcbClusterAddress=127.0.0.1 -DcbBucketName=SAMPLE -DcbBucketPassword=password -DoraAddress=localhost -DoraUser=ODS_USER -DoraPassword=dbpwdd -DoraService=ORCL -DoraTables=SAMPLE_DATA com.oracle2couchbase.Loader
+
+
+admin console = http://localhost:8091
