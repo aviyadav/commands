@@ -1,0 +1,22 @@
+sw - C:\codebase\sw\open-source\postgresql-11.5-2
+
+--- initalize DB
+start bin\initdb.exe -D C:\codebase\data\postgres-data --username=postgres --auth=trust
+
+--start db
+
+start bin\pg_ctl -D C:\codebase\data\postgres-data -l logfile start
+
+
+-----stop
+bin\pg_ctl -D C:\codebase\data\postgres-data -l logfile stop
+
+-- cmd line
+
+bin\psql --username=postgres
+
+---- create pwd 
+ALTER USER postgres WITH PASSWORD 'password';
+
+---- adminpack extension
+CREATE EXTENSION adminpack;
