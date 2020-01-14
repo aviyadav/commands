@@ -1,0 +1,86 @@
+bin/zookeeper-server-start.sh config/zookeeper.properties
+
+bin/kafka-server-start.sh config/server.properties
+
+bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+Created topic "test".
+
+-- check topic
+bin/kafka-topics.sh --list --zookeeper localhost:2181
+bin/kafka-topics.sh --list --bootstrap-server localhost:9092
+
+-- sending messages
+bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+
+-- check logs
+bin/kafka-run-class.sh kafka.tools.DumpLogSegments --deep-iteration --print-data-log --files /tmp/kafka-logs/test-0/00000000000000000000.log
+
+-- consuming messages
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
+
+-------------------------------------------------------------
+
+bin/zookeeper-server-start.sh config/zookeeper.properties
+bin/kafka-server-start.sh config/server.properties
+bin/kafka-topics.sh --list --bootstrap-server localhost:9092
+bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
+
+-------------------------------------------
+connect
+-- to start
+bin/connect-standalone config/connect-standalone.properties config/connect-file-source.properties config/connect-file-sink.properties
+
+/bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic connect-test --from-beginning
+
+----------------------------
+Confluent - Quick Start using Community Components (Local) [https://docs.confluent.io/current/quickstart/cos-quickstart.html#cos-quickstart]
+
+bin/kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic users
+bin/kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic pageviews
+
+wget https://github.com/confluentinc/kafka-connect-datagen/raw/master/config/connector_pageviews_cos.config
+curl -X POST -H "Content-Type: application/json" --data @connect
+or_pageviews_cos.config http://localhost:8083/connectors
+
+wget https://github.com/confluentinc/kafka-connect-datagen/raw/master/config/connector_users_cos.config
+curl -X POST -H "Content-Type: application/json" --data @connector_users_cos.config http://localhost:8083/connectors
+
+LOG_DIR=./ksql_logs bin/ksql
+
+
+IN KSQL prompt --- ksql>
+CREATE STREAM pageviews (viewtime BIGINT, userid VARCHAR, pageid VARCHAR) WITH (KAFKA_TOPIC='pageviews', VALUE_FORMAT='AVRO');
+
+SHOW STREAMS;
+
+CREATE TABLE users (registertime BIGINT, gender VARCHAR, regionid VARCHAR, userid VARCHAR) WITH (KAFKA_TOPIC='users', VALUE_FORMAT='AVRO', KEY = 'userid');
+
+SHOW TABLES;
+
+SET 'auto.offset.reset'='earliest';
+
+SELECT pageid FROM pageviews LIMIT 3;
+
+---------------------------------------
+bin/zookeeper-server-start etc/kafka/zookeeper.properties
+bin/kafka-server-start etc/kafka/server.properties
+bin/schema-registry-start etc/schema-registry/schema-registry.properties
+
+
+name=test-oracle-jdbc-autoincrement
+connector.class=io.confluent.connect.jdbc.JdbcSourceConnector
+tasks.max=1
+connection.password = examplePassword
+connection.url = jdbc:oracle:thin:@example.oracle.server.com:1521/ExampleServiceName
+connection.user = exampleUser
+table.whitelist=USERS
+mode=timestamp+incrementing
+incrementing.column.name=ID
+timestamp.column.name=MODIFIED
+topic.prefix=test-oracle-jdbc-
+
+
+bin/connect-standalone etc/schema-registry/connect-avro-standalone.properties etc/kafka-connect-jdbc/source-quickstart-oracle.properties
+bin/kafka-avro-console-consumer --new-consumer --bootstrap-server localhost:9092 --topic test-oracle-jdbc-USERS --from-beginning
+
