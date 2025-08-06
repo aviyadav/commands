@@ -15,7 +15,6 @@ find . -name '.?*' -type d -exec echo rm -rf {} +
 less /v/campus/ny/cs/sample/swainp/risk1/LMS/LMS_BANKLOANS_LN_2017-05-31.PARTIAL_FILE | cut -f 112 -d "|" | awk '{total = total + $1} END {printf("%10.5f\n",total)}'
 
 
-
 split -l 25 top100.all.data
 
 awk 'NR%25==0 {++c} {print $0 > c".txt"}' top100.all.data
@@ -70,3 +69,7 @@ $ top
 $ vmstat
 $ vmstat -s
 
+
+
+[kill process in a terminal]
+ps x |grep 'pts/12' | awk {'print $1'} | xargs kill
